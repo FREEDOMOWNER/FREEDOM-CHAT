@@ -16,7 +16,7 @@ Welcome to my secure, anonymous chat platform on the Tor Network.
 
 ## 📝 About This Chat
 
-FREEDOM is a real-time, encrypted chat platform operating for those who value privacy, anonymity, and uncensored communication. It is a digital sanctuary where conversations flow freely, identities are protected, and **no conversation data is kept**.
+FREEDOM CHAT is a real-time, encrypted chat platform operating for those who value privacy, anonymity, and uncensored communication. It is a digital sanctuary where conversations flow freely, identities are protected, and **no conversation data is kept**.
 
 **What makes it different:**
 - 🔐 End-to-end encrypted
