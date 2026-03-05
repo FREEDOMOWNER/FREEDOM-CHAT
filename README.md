@@ -12,7 +12,7 @@ Welcome to my secure, anonymous chat platform on the Tor Network.
 
 3. **Visit the .onion address**  
    Copy and paste this address into Tor Browser:  
-   `z6jrmh3f2kuhw7voogirro4qoaqmrz4io5d5poyqwlvkkcaa3lzmkmyd.onion`
+   `SOON. WEBSITE STILL IN PROGRESS.`
 
 ## 📝 About This Chat
 
