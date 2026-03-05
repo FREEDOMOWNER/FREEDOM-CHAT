@@ -38,7 +38,7 @@ No. This is a platform for private, legitimate conversation.
 ## 📞 Contact / Support
 
 - X/Twitter: [@FREEDOMOWNEROFF](https://twitter.com/FREEDOMOWNEROFF)
-- GitHub Issues: [Open an issue](https://github.com/yourusername/repo-name/issues)
+- GitHub Issues: [Open an issue](https://github.com/FREEDOMOWNER/FREEDOM-CHAT/issues)
 
 ---
 
