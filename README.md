@@ -1,45 +1,36 @@
-# 🔒 FREEDOM-CHAT
+# FREEDOM CHAT
 
-Welcome to my secure, anonymous chat platform on the Tor Network.
+A secure, private, and anonymous chat platform for the Tor network.
 
-## 🌐 How to Access
+## 🌐 **Live Website**
 
-1. **Download Tor Browser**  
-   Go to [torproject.org](https://www.torproject.org) and download Tor Browser
+**Access FREEDOM CHAT here:**  
+`after the launch.`
 
-2. **Open Tor Browser**  
-   Launch the browser and wait for it to connect to the Tor network
+*Requires Tor Browser to access*
 
-3. **Visit the .onion address**  
-   Copy and paste this address into Tor Browser:  
-   `SOON. WEBSITE STILL IN PROGRESS.`
+## Features
+- Private by design - no email required
+- End-to-end encrypted via Tor
+- Messages auto-delete after 24 hours
+- 16-word recovery phrase (no email resets)
+- Optional device fingerprinting with consent
+- Role-based chat system
+- Private messaging with offline delivery
 
-## 📝 About This Chat
+## Security
+- Bcrypt hashed passwords and PINs
+- Rate limiting on all endpoints
+- CSRF protection
+- XSS sanitization
+- Account lockout after 2 failed attempts
+- Security headers (CSP, HSTS, etc.)
 
-FREEDOM CHAT is a real-time, encrypted chat platform operating for those who value privacy, anonymity, and uncensored communication. It is a digital sanctuary where conversations flow freely, identities are protected, and **no conversation data is kept**.
+## Installation (for developers)
+1. Clone repository
+2. Run `npm install`
+3. Create `.env` file with session secret
+4. Run `node server.js`
 
-**What makes it different:**
-- 🔐 End-to-end encrypted
-- 👤 No personal information required
-- 🗑️ No logs — conversations aren't stored
-- 🌍 Accessible anywhere
-
-## ❓ Frequently Asked Questions
-
-**Is this really anonymous?**  
-Yes — when accessed through Tor Browser, your connection is anonymized.
-
-**Do I need to create an account?**  
-Yes — to start chatting you'll need to create an account, but the only information required is a username and password. No phone number, no personal details.
-
-**Is this illegal?**  
-No. This is a platform for private, legitimate conversation.
-
-## 📞 Contact / Support
-
-- X/Twitter: [@FREEDOMOWNEROFF](https://twitter.com/FREEDOMOWNEROFF)
-- GitHub Issues: [Open an issue](https://github.com/FREEDOMOWNER/FREEDOM-CHAT/issues)
-
----
-
-*Stay private. Stay safe.*
+## License
+MIT
