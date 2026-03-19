@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEDOM CHAT · register</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        /* ALL YOUR EXISTING STYLES - EXACTLY THE SAME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--freedom-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--freedom-warm-white) 0%, var(--freedom-teal-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-small {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--freedom-text-primary);
+            margin: 8px 0 4px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--freedom-text-secondary);
+            font-weight: 400;
+        }
+
+        .green-text {
+            color: var(--freedom-teal-light);
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+        }
+
+        .green-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--freedom-teal-light), transparent);
+        }
+
+        .register-box {
+            background: var(--freedom-bg-secondary);
+            border-radius: 28px;
+            padding: 36px 32px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+            backdrop-filter: blur(2px);
+        }
+
+        .security-note {
+            background: var(--freedom-bg-tertiary);
+            border-left: 4px solid var(--freedom-teal-light);
+            padding: 14px 16px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: var(--freedom-text-secondary);
+            border: 1px solid var(--freedom-border);
+        }
+
+        .security-note strong {
+            color: var(--freedom-teal-light);
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: var(--freedom-bg-tertiary);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--freedom-teal-light);
+            border: 1px solid var(--freedom-border);
+        }
+
+        .info-box p {
+            color: var(--freedom-text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: var(--freedom-teal-light);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--freedom-text-secondary);
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 16px;
+            font-size: 15px;
+            color: var(--freedom-text-primary);
+            font-family: var(--font-main);
+            transition: all 0.2s ease;
+        }
+
+        input::placeholder {
+            color: var(--freedom-text-muted);
+            opacity: 0.6;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 158, 0.15);
+            background: var(--freedom-bg-secondary);
+        }
+
+        .hint {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--freedom-text-muted);
+            background: var(--freedom-bg-tertiary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .captcha-group {
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 20px;
+            padding: 20px 16px;
+            margin: 20px 0 16px;
+        }
+
+        .captcha-question {
+            color: var(--freedom-teal-light);
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.2px;
+        }
+
+        .captcha-group input {
+            background: var(--freedom-bg-secondary);
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .terms-group {
+            margin: 20px 0;
+            padding: 16px;
+            background: var(--freedom-bg-tertiary);
+            border-radius: 16px;
+            border: 1px solid var(--freedom-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .terms-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--freedom-teal-light);
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .terms-group label {
+            display: inline;
+            margin: 0;
+            color: var(--freedom-text-secondary);
+            font-size: 14px;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .terms-group a {
+            color: var(--freedom-teal-light);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--freedom-deep-teal) 0%, var(--freedom-teal-light) 100%);
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--freedom-warm-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 16px 0 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-family: var(--font-main);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -8px var(--freedom-deep-teal);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .links a {
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            background: var(--freedom-bg-tertiary);
+            padding: 10px 28px;
+            border-radius: 30px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .links a:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 20px rgba(20, 184, 158, 0.2);
+        }
+
+        .footer-note {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .footer-note span {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--freedom-text-muted);
+            background: var(--freedom-bg-tertiary);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--freedom-border);
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 16px; }
+            .register-box { padding: 28px 20px; }
+            .terms-group { flex-wrap: wrap; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">FREEDOM CHAT</div>
+            <div class="page-title">CREATE ACCOUNT</div>
+            <div class="subtitle">Join <span class="green-text">GREEN</span>'s Secure Community</div>
+        </div>
+
+        <div class="register-box">
+            <div class="security-note">
+                <strong>PRIVACY FIRST:</strong> No email required • Complete anonymity
+            </div>
+
+            <div class="info-box">
+                <p><strong>IMPORTANT:</strong> After registration, you'll receive a 16-word recovery phrase. <strong style="color: var(--freedom-teal-light);">WRITE IT DOWN ON PAPER</strong> - there's no email reset. Lose it, lose your account forever.</p>
+            </div>
+
+            <form onsubmit="register(event)">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Choose your username" required minlength="3" maxlength="16" pattern="[a-zA-Z0-9]+" title="Username must be 3-16 characters, letters and numbers only">
+                    <div class="hint">3 - 16 characters • Letters • Numbers</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create a strong password" required minlength="8" maxlength="16" title="Password must be 8-16 characters, can include letters, numbers, and symbols">
+                    <div class="hint">8 - 16 characters • Letters • Numbers • Symbols</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="pin">4-Digit PIN</label>
+                    <input type="password" id="pin" name="pin" placeholder="Enter 4-digit PIN" required maxlength="4" pattern="\d{4}" inputmode="numeric">
+                    <div class="hint">Exactly 4 numbers - You'll need this to access chats</div>
+                </div>
+
+                <div class="captcha-group" id="captchaContainer">
+                    <!-- CAPTCHA will be loaded here -->
+                </div>
+
+                <div class="terms-group">
+                    <input type="checkbox" id="termsCheckbox" required>
+                    <label for="termsCheckbox">I have read and agree to the <a href="#" onclick="openTerms(); return false;">Terms of Service</a></label>
+                </div>
+
+                <button type="submit">Create Account</button>
+
+                <div class="links">
+                    <a href="login.html">← Back to Login</a>
+                </div>
+            </form>
+
+            <div class="footer-note">
+                <span>No data collection · No tracking · End-to-end encrypted</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // ===== SECURITY FIX: XSS Protection Function =====
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/\//g, "&#x2F;");
+        }
+
+        // ===== SECURITY FIX: Server-side CAPTCHA =====
+        let currentCaptchaToken = null;
+
+        async function loadCaptcha() {
+            try {
+                const response = await fetch('/api/captcha/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    currentCaptchaToken = data.token;
+                    const container = document.getElementById('captchaContainer');
+                    container.innerHTML = `
+                        <div class="captcha-question">${escapeHtml(data.question)}</div>
+                        <input type="text" id="captchaInput" placeholder="Enter answer" required>
+                        <input type="hidden" id="captchaToken" value="${data.token}">
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load CAPTCHA:', error);
+            }
+        }
+
+        // ===== SECURITY FIX: Client-side rate limiting =====
+        let registerAttempts = 0;
+        let lastRegisterTime = 0;
+        const RATE_LIMIT_WINDOW = 5000; // 5 seconds
+        const MAX_ATTEMPTS = 3;
+
+        async function register(event) {
+            event.preventDefault();
+
+            // ===== SECURITY FIX: Client-side rate limiting =====
+            const now = Date.now();
+            if (now - lastRegisterTime < RATE_LIMIT_WINDOW) {
+                showNotification('Please wait a moment before trying again', 'warning');
+                return;
+            }
+
+            registerAttempts++;
+            lastRegisterTime = now;
+
+            if (registerAttempts > MAX_ATTEMPTS) {
+                showNotification('Too many registration attempts. Please wait 10 minutes.', 'error');
+                setTimeout(() => { registerAttempts = 0; }, 600000);
+                return;
+            }
+
+            const originalUsername = document.getElementById('username').value;
+            const username = originalUsername.toLowerCase();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const pin = document.getElementById('pin').value;
+            const registerButton = document.querySelector('button[type="submit"]');
+            const originalButtonText = registerButton.textContent;
+
+            // ===== SECURITY FIX: Get CAPTCHA values =====
+            const captchaInput = document.getElementById('captchaInput')?.value;
+            const captchaToken = document.getElementById('captchaToken')?.value || currentCaptchaToken;
+
+            if (!captchaInput || !captchaToken) {
+                showNotification('Please complete the CAPTCHA', 'error');
+                loadCaptcha();
+                return;
+            }
+
+            const deviceId = window.DeviceFingerprint ?
+                await window.DeviceFingerprint.getDeviceId() : 'unknown';
+
+            const usernameCheck = validateUsername(originalUsername);
+            if (!usernameCheck.valid) {
+                showNotification(escapeHtml(usernameCheck.message), 'error');
+                return;
+            }
+
+            const passwordCheck = validatePassword(password);
+            if (!passwordCheck.valid) {
+                showNotification(escapeHtml(passwordCheck.message), 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
+            registerButton.disabled = true;
+            registerButton.textContent = 'CREATING...';
+
+            try {
+                const checkResponse = await fetch('/api/check-device-limit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ deviceId: deviceId })
+                });
+
+                const checkData = await checkResponse.json();
+
+                if (!checkData.success) {
+                    showNotification('❌ ' + escapeHtml(checkData.message), 'error');
+                    registerButton.disabled = false;
+                    registerButton.textContent = originalButtonText;
+                    loadCaptcha();
+                    return;
+                }
+
+                const phrase = generateRecoveryPhrase();
+
+                showRecoveryPhraseModal(phrase, async () => {
+                    const registerResponse = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username: username,
+                            originalUsername: originalUsername,
+                            password: password,
+                            pin: pin,
+                            recoveryPhrase: phrase,
+                            deviceId: deviceId,
+                            termsAccepted: true,
+                            captchaToken: captchaToken,
+                            captchaAnswer: captchaInput
+                        })
+                    });
+
+                    const registerData = await registerResponse.json();
+
+                    if (registerData.success) {
+                        showNotification('✅ Registration successful! Please login.', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1500);
+                    } else {
+                        showNotification('❌ ' + escapeHtml(registerData.message), 'error');
+                        registerButton.disabled = false;
+                        registerButton.textContent = originalButtonText;
+                        loadCaptcha();
+                    }
+                });
+            } catch (error) {
+                showNotification('❌ Error connecting to server', 'error');
+                registerButton.disabled = false;
+                registerButton.textContent = originalButtonText;
+                loadCaptcha();
+            }
+        }
+
+        function openTerms() {
+            window.open('terms.html', '_blank', 'width=800,height=600');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCaptcha();
+
+            window.addEventListener('message', (event) => {
+                if (event.data === 'termsAccepted') {
+                    document.getElementById('termsCheckbox').checked = true;
+                }
+            });
+
+            const pinInput = document.getElementById('pin');
+            if (pinInput) {
+                pinInput.addEventListener('keydown', function(e) {
+                    if ([46, 8, 9, 27, 13, 37, 38, 39, 40, 36, 35].indexOf(e.keyCode) !== -1 ||
+                        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true))) {
+                        return;
+                    }
+
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) &&
+                        (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+
+                pinInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

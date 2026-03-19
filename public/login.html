@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEDOM CHAT · login</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        /* ALL YOUR EXISTING STYLES - EXACTLY THE SAME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--freedom-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--freedom-warm-white) 0%, var(--freedom-teal-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: var(--freedom-teal-light);
+            -webkit-text-fill-color: var(--freedom-teal-light);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--freedom-text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .green-text {
+            color: var(--freedom-teal-light);
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+        }
+
+        .green-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--freedom-teal-light), transparent);
+        }
+
+        .login-box {
+            background: var(--freedom-bg-secondary);
+            border-radius: 28px;
+            padding: 36px 32px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+            backdrop-filter: blur(2px);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--freedom-text-secondary);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 16px;
+            font-size: 15px;
+            color: var(--freedom-text-primary);
+            font-family: var(--font-main);
+            transition: all 0.2s ease;
+        }
+
+        input::placeholder {
+            color: var(--freedom-text-muted);
+            font-weight: 400;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 158, 0.15);
+            background: var(--freedom-bg-secondary);
+        }
+
+        .captcha-group {
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 20px;
+            padding: 20px 16px;
+            margin: 24px 0 20px;
+        }
+
+        .captcha-question {
+            color: var(--freedom-teal-light);
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.2px;
+        }
+
+        .captcha-group input {
+            background: var(--freedom-bg-secondary);
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--freedom-deep-teal) 0%, var(--freedom-teal-light) 100%);
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--freedom-warm-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 24px 0 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-family: var(--font-main);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -8px var(--freedom-deep-teal);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin-top: 8px;
+        }
+
+        .links a {
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 6px 0;
+            border-bottom: 1px solid transparent;
+            position: relative;
+        }
+
+        .links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--freedom-teal-light);
+            transition: all 0.2s ease;
+            transform: translateX(-50%);
+        }
+
+        .links a:hover {
+            color: var(--freedom-teal-light);
+        }
+
+        .links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .footer-note span {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--freedom-text-muted);
+            background: var(--freedom-bg-tertiary);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--freedom-border);
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 16px; }
+            .login-box { padding: 28px 20px; }
+            .links { flex-direction: column; align-items: center; gap: 12px; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">FREEDOM CHAT</div>
+            <div class="subtitle">Secure conversations powered by <span class="green-text">GREEN</span></div>
+        </div>
+
+        <div class="login-box">
+            <form onsubmit="login(event)">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="captcha-group" id="captchaContainer">
+                    <!-- CAPTCHA will be loaded here by JavaScript -->
+                </div>
+
+                <button type="submit">VISIT FREEDOM</button>
+
+                <div class="links">
+                    <a href="register.html">Create account</a>
+                    <a href="recovery.html">Recover account</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer-note">
+            <span>No data collection · No tracking · End-to-end encrypted</span>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // ===== SECURITY FIX: Server-side CAPTCHA =====
+        let currentCaptchaToken = null;
+
+        async function loadCaptcha() {
+            try {
+                const response = await fetch('/api/captcha/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    currentCaptchaToken = data.token;
+                    const container = document.getElementById('captchaContainer');
+                    container.innerHTML = `
+                        <div class="captcha-question">${data.question}</div>
+                        <input type="text" id="captchaInput" placeholder="Enter answer" required>
+                        <input type="hidden" id="captchaToken" value="${data.token}">
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load CAPTCHA:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCaptcha);
+
+        // ===== SECURITY FIX: Client-side rate limiting =====
+        let loginAttempts = 0;
+        let lastLoginTime = 0;
+        const RATE_LIMIT_WINDOW = 2000; // 2 seconds
+        const MAX_ATTEMPTS = 5;
+
+        async function login(event) {
+            event.preventDefault();
+
+            // ===== SECURITY FIX: Client-side rate limiting =====
+            const now = Date.now();
+            if (now - lastLoginTime < RATE_LIMIT_WINDOW) {
+                showNotification('Please wait a moment before trying again', 'warning');
+                return;
+            }
+
+            loginAttempts++;
+            lastLoginTime = now;
+
+            if (loginAttempts > MAX_ATTEMPTS) {
+                showNotification('Too many attempts. Please wait 5 minutes.', 'error');
+                setTimeout(() => { loginAttempts = 0; }, 300000);
+                return;
+            }
+
+            const originalUsername = document.getElementById('username').value;
+            const username = originalUsername.toLowerCase();
+            const password = document.getElementById('password').value;
+            const loginButton = document.querySelector('button[type="submit"]');
+            const originalButtonText = loginButton.textContent;
+
+            // ===== SECURITY FIX: Get CAPTCHA values =====
+            const captchaInput = document.getElementById('captchaInput')?.value;
+            const captchaToken = document.getElementById('captchaToken')?.value || currentCaptchaToken;
+
+            if (!captchaInput || !captchaToken) {
+                showNotification('Please complete the CAPTCHA', 'error');
+                loadCaptcha();
+                return;
+            }
+
+            const deviceId = window.DeviceFingerprint ?
+                await window.DeviceFingerprint.getDeviceId() : 'unknown';
+
+            const usernameCheck = validateUsername(originalUsername);
+            if (!usernameCheck.valid) {
+                showNotification(usernameCheck.message, 'error');
+                return;
+            }
+
+            const passwordCheck = validatePassword(password);
+            if (!passwordCheck.valid) {
+                showNotification(passwordCheck.message, 'error');
+                return;
+            }
+
+            loginButton.disabled = true;
+            loginButton.textContent = 'VERIFYING...';
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        deviceId: deviceId,
+                        captchaToken: captchaToken,
+                        captchaAnswer: captchaInput
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    sessionStorage.setItem('fsc_username', originalUsername);
+                    if (data.role) {
+                        sessionStorage.setItem('fsc_role', data.role);
+                    }
+                    showNotification(`✅ Welcome back, ${originalUsername}!`, 'success');
+
+                    setTimeout(() => {
+                        window.location.href = 'global.html';
+                    }, 500);
+                } else {
+                    // Reload CAPTCHA on failure
+                    loadCaptcha();
+
+                    if (data.message.includes('locked')) {
+                        const minutesMatch = data.message.match(/(\d+)/);
+                        const minutes = minutesMatch ? minutesMatch[0] : '';
+                        showNotification('🔒 ' + data.message, 'error');
+
+                        if (minutes) {
+                            loginButton.textContent = `LOCKED (${minutes}m)`;
+                            setTimeout(() => {
+                                loginButton.disabled = false;
+                                loginButton.textContent = originalButtonText;
+                            }, 3000);
+                        } else {
+                            loginButton.disabled = false;
+                            loginButton.textContent = originalButtonText;
+                        }
+                    } else if (data.message.includes('attempt')) {
+                        showNotification('⚠️ ' + data.message, 'warning');
+                        loginButton.disabled = false;
+                        loginButton.textContent = originalButtonText;
+                    } else {
+                        showNotification('❌ ' + data.message, 'error');
+                        loginButton.disabled = false;
+                        loginButton.textContent = originalButtonText;
+                    }
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showNotification('❌ Error connecting to server', 'error');
+                loginButton.disabled = false;
+                loginButton.textContent = originalButtonText;
+                loadCaptcha(); // Reload CAPTCHA on error
+            }
+        }
+    </script>
+</body>
+</html>

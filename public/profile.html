@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEDOM CHAT · profile</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        /* ALL YOUR EXISTING STYLES - EXACTLY THE SAME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --role-user: #FFFFFF;
+            --role-vip: #FFD700;
+            --role-moderator: #0000FF;
+            --role-admin: #800080;
+            --role-owner: #0A0A0A;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            color: var(--freedom-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .profile-card {
+            background: var(--freedom-bg-secondary);
+            border-radius: 28px;
+            padding: 30px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+            backdrop-filter: blur(2px);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--freedom-border);
+        }
+
+        .back-btn {
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .back-btn:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 20px rgba(20, 184, 158, 0.2);
+            transform: translateX(-3px);
+        }
+
+        .profile-header h1 {
+            color: var(--freedom-text-primary);
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+        }
+
+        .user-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .username-display {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+            color: var(--freedom-teal-light);
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-teal-light);
+            border: 1px solid var(--freedom-border);
+            letter-spacing: 0.3px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--freedom-bg-tertiary);
+            padding: 16px 10px;
+            border-radius: 18px;
+            text-align: center;
+            border: 1px solid var(--freedom-border);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--freedom-teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(20, 184, 158, 0.15);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--freedom-teal-light);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--freedom-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bio-section {
+            background: var(--freedom-bg-tertiary);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .bio-section h3 {
+            color: var(--freedom-text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .bio-content {
+            background: var(--freedom-bg-secondary);
+            padding: 16px;
+            border-radius: 16px;
+            min-height: 100px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .bio-content textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--freedom-text-primary);
+            font-size: 14px;
+            resize: vertical;
+            outline: none;
+            font-family: var(--font-main);
+        }
+
+        .bio-content textarea:focus {
+            border-bottom: 2px solid var(--freedom-teal-light);
+        }
+
+        .bio-content textarea::placeholder {
+            color: var(--freedom-text-muted);
+            opacity: 0.6;
+        }
+
+        .bio-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .bio-btn {
+            padding: 8px 22px;
+            border: none;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--freedom-bg-secondary);
+            color: var(--freedom-text-secondary);
+            border: 1px solid var(--freedom-border);
+        }
+
+        .bio-btn.save {
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            border: none;
+        }
+
+        .bio-btn.edit {
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-secondary);
+        }
+
+        .bio-btn.cancel {
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-secondary);
+        }
+
+        .bio-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 5px 15px rgba(20, 184, 158, 0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            border: 1px solid var(--freedom-border);
+            position: relative;
+            overflow: hidden;
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-primary);
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            border-color: var(--freedom-teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(20, 184, 158, 0.2);
+        }
+
+        .action-btn.change-pin:hover { color: var(--freedom-teal-light); }
+        .action-btn.change-password:hover { color: var(--freedom-teal-light); }
+        .action-btn.delete-account:hover { color: #e74c3c; border-color: #e74c3c; }
+
+        .action-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--freedom-bg-tertiary);
+        }
+
+        .action-btn.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: var(--freedom-border);
+            color: var(--freedom-text-secondary);
+        }
+
+        .warning-text {
+            text-align: center;
+            font-size: 12px;
+            color: var(--freedom-text-muted);
+            margin-top: 16px;
+        }
+
+        .username-change-warning {
+            background: rgba(20, 184, 158, 0.1);
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            color: var(--freedom-teal-light);
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--freedom-bg-secondary);
+            padding: 30px;
+            border-radius: 28px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+        }
+
+        .modal-content h2 {
+            color: var(--freedom-text-primary);
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .modal-content p {
+            color: var(--freedom-text-secondary);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 15px;
+            border: 1px solid var(--freedom-border);
+            border-radius: 30px;
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-primary);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 158, 0.15);
+        }
+
+        .modal-content input::placeholder {
+            color: var(--freedom-text-muted);
+            opacity: 0.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--freedom-border);
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-secondary);
+        }
+
+        .modal-btn.confirm {
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            border: none;
+        }
+
+        .modal-btn.delete {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            color: white;
+            border: none;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 5px 15px rgba(20, 184, 158, 0.2);
+        }
+
+        .modal-btn.delete:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .success-message {
+            background: rgba(20, 184, 158, 0.1);
+            border: 1px solid var(--freedom-teal-light);
+            color: var(--freedom-teal-light);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .profile-card { padding: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .profile-header { flex-direction: column; text-align: center; }
+            .username-display { font-size: 24px; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <a href="global.html" class="back-btn">← Back to Chat</a>
+                <h1>My Profile</h1>
+            </div>
+
+            <div class="success-message" id="successMessage"></div>
+
+            <div class="user-info">
+                <div class="username-display" id="usernameDisplay">Loading...</div>
+                <div class="role-badge" id="roleDisplay">Loading...</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="joinDate">-</div>
+                    <div class="stat-label">Joined</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="messageCount">0</div>
+                    <div class="stat-label">Messages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="warningCount">0</div>
+                    <div class="stat-label">Warnings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="accountNumber">1</div>
+                    <div class="stat-label">Account #</div>
+                </div>
+            </div>
+
+            <div class="bio-section">
+                <h3>My Bio</h3>
+                <div class="bio-content">
+                    <textarea id="bioText" readonly placeholder="Write something about your cosmic self..."></textarea>
+                </div>
+                <div class="bio-actions">
+                    <button class="bio-btn edit" id="editBioBtn">Edit Bio</button>
+                    <button class="bio-btn save" id="saveBioBtn" style="display: none;">Save</button>
+                    <button class="bio-btn cancel" id="cancelBioBtn" style="display: none;">Cancel</button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn change-pin" id="changePinBtn">
+                    Change PIN Code
+                </button>
+
+                <button class="action-btn change-password" id="changePasswordBtn">
+                    Change Password
+                </button>
+
+                <button class="action-btn delete-account" id="deleteAccountBtn">
+                    Delete Account
+                </button>
+            </div>
+
+            <div class="warning-text">
+                Be careful with these actions
+            </div>
+        </div>
+    </div>
+
+    <!-- Change PIN Modal -->
+    <div class="modal" id="pinModal">
+        <div class="modal-content">
+            <h2>Change PIN</h2>
+            <input type="password" id="currentPin" placeholder="Current PIN" maxlength="4" pattern="\d{4}" inputmode="numeric">
+            <input type="password" id="newPin" placeholder="New PIN (4 digits)" maxlength="4" pattern="\d{4}" inputmode="numeric">
+            <input type="password" id="confirmPin" placeholder="Confirm New PIN" maxlength="4" pattern="\d{4}" inputmode="numeric">
+            <input type="password" id="passwordForPin" placeholder="Account Password">
+            <!-- ===== SECURITY FIX: Hidden CSRF token field ===== -->
+            <input type="hidden" id="csrfTokenPin" value="">
+            <div class="modal-actions">
+                <button class="modal-btn confirm" onclick="changePin()">Update</button>
+                <button class="modal-btn cancel" onclick="closeModal('pinModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <h2>Change Password</h2>
+            <input type="password" id="currentPassword" placeholder="Current Password">
+            <input type="password" id="newPassword" placeholder="New Password (8-16 chars)">
+            <input type="password" id="confirmNewPassword" placeholder="Confirm New Password">
+            <!-- ===== SECURITY FIX: Hidden CSRF token field ===== -->
+            <input type="hidden" id="csrfTokenPassword" value="">
+            <div class="modal-actions">
+                <button class="modal-btn confirm" onclick="changePassword()">Update</button>
+                <button class="modal-btn cancel" onclick="closeModal('passwordModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <h2>Delete Account</h2>
+            <p style="color: var(--freedom-teal-light);">⚠️ This action CANNOT be undone!</p>
+            <p style="color: var(--freedom-text-secondary);">Type "DELETE" to confirm:</p>
+            <input type="text" id="deleteConfirm" placeholder="DELETE">
+            <input type="password" id="passwordForDelete" placeholder="Confirm Password">
+            <!-- ===== SECURITY FIX: Hidden CSRF token field ===== -->
+            <input type="hidden" id="csrfTokenDelete" value="">
+            <div class="modal-actions">
+                <button class="modal-btn delete" onclick="deleteAccount()">Delete Forever</button>
+                <button class="modal-btn cancel" onclick="closeModal('deleteModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== SECURITY FIX: XSS Protection Function =====
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/\//g, "&#x2F;");
+        }
+
+        // ===== SECURITY FIX: CSRF Token Handling (custom implementation) =====
+        let csrfToken = null;
+
+        async function fetchCsrfToken() {
+            try {
+                const response = await fetch('/api/csrf-token');
+                const data = await response.json();
+                if (data.success) {
+                    csrfToken = data.csrfToken;
+                    // Set CSRF tokens in all modals
+                    document.getElementById('csrfTokenPin').value = csrfToken;
+                    document.getElementById('csrfTokenPassword').value = csrfToken;
+                    document.getElementById('csrfTokenDelete').value = csrfToken;
+                }
+            } catch (error) {
+                console.error('Failed to fetch CSRF token:', error);
+            }
+        }
+
+        // Fetch a new token before each sensitive action
+        async function refreshCsrfToken() {
+            await fetchCsrfToken();
+        }
+
+        // Fetch CSRF token on page load
+        fetchCsrfToken();
+
+        async function checkPinSession() {
+            const pinVerified = sessionStorage.getItem('fsc_pin_verified');
+            const pinSession = sessionStorage.getItem('fsc_pin_session');
+            const username = sessionStorage.getItem('fsc_username');
+
+            if (!pinVerified || !pinSession) {
+                window.location.href = 'pin.html';
+                return false;
+            }
+
+            try {
+                const response = await fetch('/api/check-pin-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        sessionId: pinSession
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!data.valid) {
+                    sessionStorage.removeItem('fsc_pin_verified');
+                    sessionStorage.removeItem('fsc_pin_session');
+                    window.location.href = 'pin.html';
+                    return false;
+                }
+
+                return true;
+            } catch (error) {
+                console.error('PIN check error:', error);
+                return false;
+            }
+        }
+
+        const roleColors = {
+            'USER': '#FFFFFF',
+            'VIP': '#FFD700',
+            'MODERATOR': '#0000FF',
+            'ADMIN': '#800080',
+            'OWNER': '#0A0A0A'
+        };
+
+        const roleBadges = {
+            'VIP': ' ⭐',
+            'MODERATOR': ' 🛡️',
+            'ADMIN': ' 👑',
+            'OWNER': ' ⚡'
+        };
+
+        const username = sessionStorage.getItem('fsc_username');
+        const userRole = sessionStorage.getItem('fsc_role') || 'USER';
+
+        if (!username) {
+            window.location.href = 'login.html';
+        }
+
+        checkPinSession();
+
+        let usernameChanged = false;
+        let userData = {};
+
+        async function loadUserData() {
+            console.log('Loading user data for:', username);
+
+            try {
+                const response = await fetch('/api/user-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: username })
+                });
+
+                const data = await response.json();
+                console.log('User data received:', data);
+
+                if (data.error) {
+                    console.error('Error:', data.error);
+                    return;
+                }
+
+                userData = data;
+
+                const displayName = data.original_username || data.username || username;
+                document.getElementById('usernameDisplay').textContent = displayName + (roleBadges[userRole] || '');
+                document.getElementById('usernameDisplay').style.color = roleColors[userRole] || '#FFFFFF';
+
+                document.getElementById('roleDisplay').textContent = userRole;
+
+                if (data.join_date) {
+                    const joinDate = new Date(data.join_date);
+                    if (!isNaN(joinDate.getTime())) {
+                        const formattedDate = joinDate.toLocaleDateString('en-US', {
+                            month: 'short',
+                            year: 'numeric',
+                            day: 'numeric'
+                        });
+                        document.getElementById('joinDate').textContent = formattedDate;
+                    } else {
+                        document.getElementById('joinDate').textContent = 'Unknown';
+                    }
+                } else {
+                    document.getElementById('joinDate').textContent = 'Unknown';
+                }
+
+                document.getElementById('messageCount').textContent = data.message_count || 0;
+                document.getElementById('warningCount').textContent = data.warnings || 0;
+                document.getElementById('accountNumber').textContent = data.account_number || 1;
+                document.getElementById('bioText').value = data.bio || 'Delete me and type your bio here.';
+
+                usernameChanged = data.username_changed === 1;
+
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        document.getElementById('editBioBtn').addEventListener('click', () => {
+            document.getElementById('bioText').readOnly = false;
+            document.getElementById('bioText').focus();
+            document.getElementById('editBioBtn').style.display = 'none';
+            document.getElementById('saveBioBtn').style.display = 'inline-block';
+            document.getElementById('cancelBioBtn').style.display = 'inline-block';
+        });
+
+        document.getElementById('saveBioBtn').addEventListener('click', async () => {
+            const newBio = document.getElementById('bioText').value;
+
+            try {
+                const response = await fetch('/api/update-bio', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        bio: newBio
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess('✅ Bio updated successfully!');
+                } else {
+                    showSuccess('❌ Failed to update bio');
+                }
+            } catch (error) {
+                console.error('Bio update error:', error);
+                showSuccess('❌ Server error');
+            }
+
+            document.getElementById('bioText').readOnly = true;
+            document.getElementById('editBioBtn').style.display = 'inline-block';
+            document.getElementById('saveBioBtn').style.display = 'none';
+            document.getElementById('cancelBioBtn').style.display = 'none';
+        });
+
+        document.getElementById('cancelBioBtn').addEventListener('click', () => {
+            loadUserData();
+
+            document.getElementById('bioText').readOnly = true;
+            document.getElementById('editBioBtn').style.display = 'inline-block';
+            document.getElementById('saveBioBtn').style.display = 'none';
+            document.getElementById('cancelBioBtn').style.display = 'none';
+        });
+
+        function showSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = escapeHtml(message);
+            successEl.style.display = 'block';
+
+            setTimeout(() => {
+                successEl.style.display = 'none';
+            }, 3000);
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.querySelectorAll(`#${modalId} input`).forEach(input => input.value = '');
+        }
+
+        // ===== SECURITY FIX: CSRF-protected PIN change =====
+        async function changePin() {
+            const currentPin = document.getElementById('currentPin').value;
+            const newPin = document.getElementById('newPin').value;
+            const confirmPin = document.getElementById('confirmPin').value;
+            const password = document.getElementById('passwordForPin').value;
+
+            if (!currentPin || !newPin || !confirmPin || !password) {
+                alert('❌ Please fill all fields');
+                return;
+            }
+
+            if (newPin.length !== 4 || !/^\d+$/.test(newPin)) {
+                alert('❌ PIN must be exactly 4 digits');
+                return;
+            }
+
+            if (newPin !== confirmPin) {
+                alert('❌ New PINs do not match');
+                return;
+            }
+
+            // Get fresh token before sensitive action
+            await refreshCsrfToken();
+
+            try {
+                const response = await fetch('/api/change-pin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'CSRF-Token': csrfToken
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        currentPin: currentPin,
+                        newPin: newPin,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess('✅ PIN changed successfully!');
+                    closeModal('pinModal');
+                } else {
+                    alert('❌ ' + escapeHtml(data.message));
+                }
+            } catch (error) {
+                console.error('PIN change error:', error);
+                alert('❌ Server error');
+            }
+        }
+
+        // ===== SECURITY FIX: CSRF-protected password change =====
+        async function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmNewPassword) {
+                alert('❌ Please fill all fields');
+                return;
+            }
+
+            if (newPassword.length < 8 || newPassword.length > 16) {
+                alert('❌ Password must be 8-16 characters');
+                return;
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                alert('❌ New passwords do not match');
+                return;
+            }
+
+            // Get fresh token before sensitive action
+            await refreshCsrfToken();
+
+            try {
+                const response = await fetch('/api/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'CSRF-Token': csrfToken
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess('✅ Password changed successfully!');
+                    closeModal('passwordModal');
+                } else {
+                    alert('❌ ' + escapeHtml(data.message));
+                }
+            } catch (error) {
+                console.error('Password change error:', error);
+                alert('❌ Server error');
+            }
+        }
+
+        // ===== SECURITY FIX: CSRF-protected account deletion =====
+        window.deleteAccount = async function() {
+            const confirmText = document.getElementById('deleteConfirm').value;
+            const password = document.getElementById('passwordForDelete').value;
+
+            if (confirmText !== 'DELETE') {
+                alert('❌ Please type "DELETE" to confirm');
+                return;
+            }
+
+            if (!password) {
+                alert('❌ Please enter your password');
+                return;
+            }
+
+            if (confirm('⚠️ FINAL WARNING: This will permanently delete your account. Continue?')) {
+                // Get fresh token before sensitive action
+                await refreshCsrfToken();
+
+                try {
+                    const response = await fetch('/api/delete-account', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': csrfToken
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        alert('❌ Account deleted. You will be logged out.');
+                        sessionStorage.removeItem('fsc_username');
+                        sessionStorage.removeItem('fsc_role');
+                        sessionStorage.removeItem('fsc_pin_verified');
+                        sessionStorage.removeItem('fsc_pin_session');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert('❌ ' + escapeHtml(data.message));
+                    }
+                } catch (error) {
+                    console.error('Delete account error:', error);
+                    alert('❌ Server error');
+                }
+            }
+        };
+
+        document.getElementById('changePinBtn').addEventListener('click', () => openModal('pinModal'));
+        document.getElementById('changePasswordBtn').addEventListener('click', () => openModal('passwordModal'));
+        document.getElementById('deleteAccountBtn').addEventListener('click', () => openModal('deleteModal'));
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', loadUserData);
+    </script>
+</body>
+</html>

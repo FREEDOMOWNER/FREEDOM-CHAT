@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEDOM CHAT · page not found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--freedom-text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .error-card {
+            background: var(--freedom-bg-secondary);
+            border-radius: 32px;
+            padding: 60px 40px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--freedom-warm-white), var(--freedom-teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            color: var(--freedom-teal-light);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            color: var(--freedom-text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .home-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .home-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px var(--freedom-deep-teal);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--freedom-text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--freedom-teal-light);
+        }
+
+        @media (max-width: 480px) {
+            .error-card { padding: 40px 20px; }
+            .error-code { font-size: 80px; }
+            .error-title { font-size: 20px; }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="error-card">
+            <div class="error-code">404</div>
+            <div class="error-title">Page Not Found</div>
+            <div class="error-message">
+                The page you're looking for doesn't exist or has been moved.
+            </div>
+            <a href="/" class="home-link">Return to Home</a>
+            <br>
+            <a href="javascript:history.back()" class="back-link">← Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

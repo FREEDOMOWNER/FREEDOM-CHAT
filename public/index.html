@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>FREEDOM CHAT</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            /* Role colors */
+            --role-user: #FFFFFF;
+            --role-vip: #FFD700;
+            --role-mod: #0000FF;
+            --role-admin: #800080;
+            --role-owner: #0A0A0A;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            color: var(--freedom-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Subtle organic pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--freedom-border);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--freedom-warm-white), var(--freedom-teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-border);
+            background: var(--freedom-bg-tertiary);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white) !important;
+            border: none;
+            font-weight: 600;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(20, 184, 158, 0.4);
+            border-color: transparent;
+        }
+
+        .hero-card {
+            background: var(--freedom-bg-secondary);
+            border-radius: 32px;
+            padding: 60px 50px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--freedom-warm-white), var(--freedom-teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            color: var(--freedom-teal-light);
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-description {
+            color: var(--freedom-text-secondary);
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-block;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px var(--freedom-deep-teal);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            border: 1px solid var(--freedom-border);
+            display: inline-block;
+        }
+
+        .cta-secondary:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            transform: translateY(-3px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 60px 0 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--freedom-teal-light);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--freedom-text-muted);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: var(--freedom-bg-tertiary);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--freedom-border);
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--freedom-teal-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -10px var(--freedom-deep-teal);
+        }
+
+        .feature-title {
+            color: var(--freedom-teal-light);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            color: var(--freedom-text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .manifesto-box {
+            background: var(--freedom-bg-tertiary);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid var(--freedom-border);
+            position: relative;
+        }
+
+        .manifesto-text {
+            color: var(--freedom-text-primary);
+            font-size: 18px;
+            line-height: 1.8;
+            font-style: italic;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .manifesto-author {
+            color: var(--freedom-teal-light);
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .value-title {
+            color: var(--freedom-teal-light);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .value-description {
+            color: var(--freedom-text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            background: var(--freedom-bg-tertiary);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--freedom-text-secondary);
+            transition: all 0.2s ease;
+            border: 1px solid var(--freedom-border);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .social-link:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(20, 184, 158, 0.2);
+        }
+
+        .email-link {
+            grid-column: span 4;
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white) !important;
+            border: none;
+            font-weight: 600;
+        }
+
+        .email-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px var(--freedom-deep-teal);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--freedom-border);
+            color: var(--freedom-text-muted);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--freedom-teal-light);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .container { padding: 10px; }
+            .hero-card { padding: 40px 20px; }
+            .hero-title { font-size: 36px; }
+            .hero-subtitle { font-size: 18px; }
+            .cta-buttons { flex-direction: column; }
+            .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .social-grid { grid-template-columns: 1fr; }
+            .email-link { grid-column: span 1; }
+            .footer-links { flex-direction: column; gap: 15px; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">FREEDOM CHAT</div>
+            <div class="nav-links">
+                <a href="login.html" class="nav-link login-btn">Login</a>
+                <a href="register.html" class="nav-link login-btn">Register</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero-card">
+            <h1 class="hero-title">Speak Freely</h1>
+            <div class="hero-subtitle">Private · Anonymous · Encrypted</div>
+            <p class="hero-description">
+                A secure, private, and uncensored communication platform. No email required. No tracking. No compromises.
+            </p>
+            <div class="cta-buttons">
+                <a href="register.html" class="cta-primary">Join the Conversation</a>
+                <a href="about.html" class="cta-secondary">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Live Stats -->
+        <div class="stats-grid" id="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="userCount">-</div>
+                <div class="stat-label">Community Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="messageCount">-</div>
+                <div class="stat-label">Messages Sent</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="onlineCount">-</div>
+                <div class="stat-label">Currently Online</div>
+            </div>
+        </div>
+
+        <!-- Core Features -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-title">Private by Design</div>
+                <div class="feature-description">No email required, no personal data collected, no tracking. Your identity is known only by the username you choose.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">End-to-End Encrypted</div>
+                <div class="feature-description">All communications are encrypted via the Tor network. Your conversations cannot be intercepted or monitored.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Anonymous Access</div>
+                <div class="feature-description">Fully compatible with Tor Browser. The .onion address provides authentication and encryption without certificates.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Messages Self-Destruct</div>
+                <div class="feature-description">All messages are automatically deleted 24 hours after posting. Nothing is stored forever.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">16-Word Recovery</div>
+                <div class="feature-description">Your account is secured by a recovery phrase — no email resets, no backdoors, no third-party dependency.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">Community Moderated</div>
+                <div class="feature-description">Dedicated moderators keep the platform safe while respecting your privacy and freedom.</div>
+            </div>
+        </div>
+
+        <!-- The Manifesto -->
+        <div class="manifesto-box">
+            <div class="manifesto-text">
+                "In a world where every word is monitored, every message tracked, and every conversation sold — I chose to build something different. FREEDOM CHAT was born from a simple belief: that communication is a fundamental human right, not a commodity to be exploited."
+            </div>
+            <div class="manifesto-author">— GREEN, Creator</div>
+        </div>
+
+        <!-- Core Values -->
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-title">Private</div>
+                <div class="value-description">Your data belongs to you. Always. No exceptions.</div>
+            </div>
+            <div class="value-item">
+                <div class="value-title">Anonymous</div>
+                <div class="value-description">Speak freely without fear. No identities, no tracking.</div>
+            </div>
+            <div class="value-item">
+                <div class="value-title">Encrypted</div>
+                <div class="value-description">End-to-end encryption. Your conversations belong only to you.</div>
+            </div>
+        </div>
+
+        <!-- The Vision -->
+        <div style="margin: 40px 0; text-align: center;">
+            <h2 style="color: var(--freedom-teal-light); font-size: 24px; margin-bottom: 20px;">The Vision</h2>
+            <p style="color: var(--freedom-text-secondary); font-size: 16px; line-height: 1.7; max-width: 700px; margin: 0 auto;">
+                <strong>Short-term:</strong> Make FREEDOM CHAT the most visited and most used private chat platform.<br><br>
+                <strong>Long-term:</strong> Build a community where privacy is the default — where secure communication is accessible to everyone, everywhere.
+            </p>
+        </div>
+
+        <!-- Official Channels -->
+        <div style="margin: 40px 0;">
+            <h2 style="color: var(--freedom-teal-light); font-size: 24px; margin-bottom: 20px; text-align: center;">Official Channels</h2>
+            <div class="social-grid">
+                <a href="https://x.com/FREEDOMOWNEROFF" target="_blank" class="social-link">Twitter</a>
+                <a href="https://www.instagram.com/freedomowner_off" target="_blank" class="social-link">Instagram</a>
+                <a href="https://www.youtube.com/@FREEDOMOWNEROFF" target="_blank" class="social-link">YouTube</a>
+                <a href="https://www.tiktok.com/@freedomowner_off" target="_blank" class="social-link">TikTok</a>
+                <a href="mailto:freedom.owner@proton.me" class="social-link email-link">Email</a>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div style="background: var(--freedom-bg-tertiary); border-radius: 24px; padding: 40px; margin: 40px 0; border: 1px solid var(--freedom-border); text-align: center;">
+            <h2 style="color: var(--freedom-teal-light); font-size: 24px; margin-bottom: 15px;">Support the Mission</h2>
+            <p style="color: var(--freedom-text-secondary); font-size: 16px; line-height: 1.7; max-width: 600px; margin: 0 auto 20px;">
+                FREEDOM CHAT is and will always be free for everyone. If you believe in our mission, you can support the project through donations.
+            </p>
+            <a href="support.html" class="cta-secondary" style="display: inline-block; margin-top: 10px;">Learn More</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="terms.html">Terms</a>
+                <a href="support.html">Support</a>
+            </div>
+            <p>© 2026 FREEDOM CHAT · Created by GREEN · Private · Anonymous · Encrypted</p>
+            <p style="font-size: 12px; margin-top: 10px;">Free for Everyone, Forever</p>
+        </div>
+    </div>
+
+    <script>
+        // Fetch live stats
+        fetch('/api/test')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('userCount').textContent = data.users || 0;
+                document.getElementById('messageCount').textContent = (data.messages || 0) + (data.privateMessages || 0);
+                document.getElementById('onlineCount').textContent = data.online || 0;
+            })
+            .catch(() => {
+                document.getElementById('userCount').textContent = '?';
+                document.getElementById('messageCount').textContent = '?';
+                document.getElementById('onlineCount').textContent = '?';
+            });
+    </script>
+</body>
+</html>

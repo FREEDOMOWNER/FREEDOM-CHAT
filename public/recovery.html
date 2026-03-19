@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEDOM CHAT · recovery</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        /* ALL YOUR EXISTING STYLES - EXACTLY THE SAME */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--freedom-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--freedom-warm-white) 0%, var(--freedom-teal-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-small {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--freedom-text-primary);
+            margin: 8px 0 4px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--freedom-text-secondary);
+            font-weight: 400;
+        }
+
+        .recovery-box {
+            background: var(--freedom-bg-secondary);
+            border-radius: 28px;
+            padding: 36px 32px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+            backdrop-filter: blur(2px);
+        }
+
+        .info-box {
+            background: var(--freedom-bg-tertiary);
+            border-left: 4px solid var(--freedom-teal-light);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .info-box p {
+            color: var(--freedom-text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--freedom-text-secondary);
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 16px;
+            font-size: 15px;
+            color: var(--freedom-text-primary);
+            font-family: var(--font-main);
+            transition: all 0.2s ease;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--freedom-text-muted);
+            opacity: 0.6;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 158, 0.15);
+            background: var(--freedom-bg-secondary);
+        }
+
+        .captcha-group {
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 20px;
+            padding: 20px 16px;
+            margin: 20px 0 16px;
+        }
+
+        .captcha-question {
+            color: var(--freedom-teal-light);
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 16px;
+            letter-spacing: -0.2px;
+        }
+
+        .captcha-group input {
+            background: var(--freedom-bg-secondary);
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .hint {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--freedom-text-muted);
+            background: var(--freedom-bg-tertiary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            line-height: 1.5;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .phrase-status {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+            font-size: 14px;
+        }
+
+        .phrase-status.valid {
+            background: rgba(20, 184, 158, 0.1);
+            border: 1px solid var(--freedom-teal-light);
+            color: var(--freedom-teal-light);
+            display: block;
+        }
+
+        .phrase-status.invalid {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            display: block;
+        }
+
+        .word-count {
+            font-size: 13px;
+            color: var(--freedom-teal-light);
+            font-weight: 500;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--freedom-deep-teal) 0%, var(--freedom-teal-light) 100%);
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--freedom-warm-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 16px 0 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-family: var(--font-main);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -8px var(--freedom-deep-teal);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .footer-note {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .footer-note span {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--freedom-text-muted);
+            background: var(--freedom-bg-tertiary);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--freedom-border);
+            letter-spacing: 0.3px;
+        }
+
+        .back-to-login {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .back-to-login a {
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            background: var(--freedom-bg-tertiary);
+            padding: 10px 28px;
+            border-radius: 30px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .back-to-login a:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 20px rgba(20, 184, 158, 0.2);
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 16px; }
+            .recovery-box { padding: 28px 20px; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">FREEDOM CHAT</div>
+            <div class="page-title">ACCOUNT RECOVERY</div>
+            <div class="subtitle">Restore access to your account</div>
+        </div>
+
+        <div class="recovery-box">
+            <div class="info-box">
+                <p>Enter your 16-word recovery phrase to regain access to your account.</p>
+            </div>
+
+            <form onsubmit="recoverAccount(event); return false;">
+                <div class="input-group">
+                    <label for="recoveryPhrase">16-Word Recovery Phrase</label>
+                    <textarea id="recoveryPhrase" name="recoveryPhrase" placeholder="Enter your 16 words here, separated by spaces..." required></textarea>
+                    <div class="hint">
+                        <span id="wordCount">Word count: 0/16</span>
+                    </div>
+                    <div class="phrase-status" id="phraseStatus"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="pin">New 4-Digit PIN</label>
+                    <input type="password" id="pin" name="pin" placeholder="Enter new 4-digit PIN" required maxlength="4" pattern="\d{4}" inputmode="numeric">
+                </div>
+
+                <div class="input-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" required minlength="8" maxlength="16">
+                    <div class="hint">8-16 characters, letters, numbers, symbols</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirmNewPassword">Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Re-enter new password" required>
+                </div>
+
+                <div class="captcha-group" id="captchaContainer"></div>
+
+                <button type="submit">Recover Account</button>
+
+                <div class="back-to-login">
+                    <a href="login.html">← Back to Login</a>
+                </div>
+            </form>
+
+            <div class="footer-note">
+                <span>No data collection · No tracking · End-to-end encrypted</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== SECURITY FIX: XSS Protection Function =====
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/\//g, "&#x2F;");
+        }
+
+        // ===== SECURITY FIX: Server-side CAPTCHA =====
+        let currentCaptchaToken = null;
+
+        async function loadCaptcha() {
+            try {
+                const response = await fetch('/api/captcha/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    currentCaptchaToken = data.token;
+                    const container = document.getElementById('captchaContainer');
+                    container.innerHTML = `
+                        <div class="captcha-question">${escapeHtml(data.question)}</div>
+                        <input type="text" id="captchaInput" placeholder="Enter answer" required>
+                        <input type="hidden" id="captchaToken" value="${data.token}">
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load CAPTCHA:', error);
+            }
+        }
+
+        // ===== SECURITY FIX: Client-side rate limiting =====
+        let recoveryAttempts = 0;
+        let lastRecoveryTime = 0;
+        const RATE_LIMIT_WINDOW = 10000; // 10 seconds
+        const MAX_ATTEMPTS = 3;
+
+        window.recoverAccount = async function(event) {
+            event.preventDefault();
+
+            // ===== SECURITY FIX: Client-side rate limiting =====
+            const now = Date.now();
+            if (now - lastRecoveryTime < RATE_LIMIT_WINDOW) {
+                alert('Please wait a moment before trying again');
+                return;
+            }
+
+            recoveryAttempts++;
+            lastRecoveryTime = now;
+
+            if (recoveryAttempts > MAX_ATTEMPTS) {
+                alert('Too many recovery attempts. Please wait 15 minutes.');
+                setTimeout(() => { recoveryAttempts = 0; }, 900000);
+                return;
+            }
+
+            const phrase = document.getElementById('recoveryPhrase').value;
+            const pin = document.getElementById('pin').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            // ===== SECURITY FIX: Get CAPTCHA values =====
+            const captchaInput = document.getElementById('captchaInput')?.value;
+            const captchaToken = document.getElementById('captchaToken')?.value || currentCaptchaToken;
+
+            if (!captchaInput || !captchaToken) {
+                alert('Please complete the CAPTCHA');
+                loadCaptcha();
+                return;
+            }
+
+            if (captchaInput !== captchaAnswer) {
+                alert('Incorrect captcha answer');
+                loadCaptcha();
+                return;
+            }
+
+            let deviceId = 'unknown';
+            if (window.DeviceFingerprint) {
+                try {
+                    deviceId = await window.DeviceFingerprint.getDeviceId();
+                } catch (e) {
+                    console.error('Error getting device ID:', e);
+                }
+            }
+
+            if (pin.length !== 4 || !/^\d+$/.test(pin)) {
+                alert('PIN must be exactly 4 digits');
+                return;
+            }
+
+            if (newPassword.length < 8 || newPassword.length > 16) {
+                alert('Password must be 8-16 characters');
+                return;
+            }
+            if (newPassword !== confirmNewPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            const wordCount = phrase.trim().split(/\s+/).length;
+            if (wordCount !== 16) {
+                alert('Recovery phrase must be exactly 16 words');
+                return;
+            }
+
+            const submitBtn = document.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/recover', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        phrase: phrase.trim(),
+                        newPassword: newPassword,
+                        pin: pin,
+                        deviceId: deviceId,
+                        captchaToken: captchaToken,
+                        captchaAnswer: captchaInput
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Account recovered! You can now login with your new password.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('❌ ' + escapeHtml(data.message || 'Recovery failed'));
+                    loadCaptcha();
+                }
+            } catch (error) {
+                console.error('Recovery error:', error);
+                alert('❌ Error connecting to server');
+                loadCaptcha();
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        };
+
+        document.getElementById('recoveryPhrase').addEventListener('input', function() {
+            const words = this.value.trim().split(/\s+/);
+            const count = this.value.trim() === '' ? 0 : words.length;
+            const span = document.getElementById('wordCount');
+            span.textContent = `Word count: ${count}/16`;
+            span.style.color = count === 16 ? 'var(--freedom-teal-light)' : (count > 16 ? '#e74c3c' : 'var(--freedom-text-muted)');
+
+            if (count === 16) {
+                validatePhrase(this.value.trim());
+            } else {
+                document.getElementById('phraseStatus').style.display = 'none';
+            }
+        });
+
+        async function validatePhrase(phrase) {
+            // Only validate word count client-side for privacy
+            // Don't send to server for validation to avoid leaking phrase
+            const statusEl = document.getElementById('phraseStatus');
+            statusEl.className = 'phrase-status valid';
+            statusEl.textContent = '✅ 16 words entered';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCaptcha();
+
+            const pinInput = document.getElementById('pin');
+            if (pinInput) {
+                pinInput.addEventListener('keydown', function(e) {
+                    if ([46, 8, 9, 27, 13, 37, 38, 39, 40, 36, 35].indexOf(e.keyCode) !== -1 ||
+                        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
+                        (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true))) {
+                        return;
+                    }
+
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) &&
+                        (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+
+                pinInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                window.recoverAccount(e);
+            });
+        });
+    </script>
+</body>
+</html>

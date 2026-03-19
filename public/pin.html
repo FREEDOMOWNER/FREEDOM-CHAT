@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREEDOM CHAT · enter pin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            color: var(--freedom-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Subtle organic pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--freedom-warm-white), var(--freedom-teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--freedom-text-primary);
+            margin: 8px 0 4px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--freedom-text-secondary);
+            font-weight: 400;
+        }
+
+        .pin-box {
+            background: var(--freedom-bg-secondary);
+            border-radius: 28px;
+            padding: 36px 32px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+            backdrop-filter: blur(2px);
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--freedom-text-secondary);
+            font-weight: 500;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px;
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            border-radius: 20px;
+            font-size: 32px;
+            color: var(--freedom-teal-light);
+            font-family: var(--font-main);
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 12px;
+            font-weight: 600;
+        }
+
+        input::placeholder {
+            color: var(--freedom-text-muted);
+            letter-spacing: normal;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 0 0 3px rgba(20, 184, 158, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--freedom-warm-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 8px 0 16px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-family: var(--font-main);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px var(--freedom-deep-teal);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 16px 0 8px;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--freedom-text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container { padding: 16px; }
+            .pin-box { padding: 28px 20px; }
+            input { font-size: 28px; letter-spacing: 8px; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        /* Selection color */
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <!-- Import Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">FREEDOM CHAT</div>
+            <div class="page-title">ENTER PIN</div>
+            <div class="subtitle">4-digit access code required</div>
+        </div>
+
+        <div class="pin-box">
+            <div class="input-group">
+                <label for="pin">🔐 Your PIN</label>
+                <input type="password" id="pin" placeholder="****" maxlength="4" pattern="\d{4}" inputmode="numeric" autofocus>
+            </div>
+
+            <button onclick="verifyPin()">ACCESS CHAT</button>
+
+            <div class="error-message" id="errorMessage">Incorrect PIN</div>
+
+            <div class="footer-note">
+                PIN required to access chats
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const username = sessionStorage.getItem('fsc_username');
+        if (!username) {
+            window.location.href = 'login.html';
+        }
+
+        // ===== ADD THIS FLAG TO PREVENT MULTIPLE SUBMISSIONS =====
+        let isVerifying = false;
+
+        // ===== ONLY CHANGE: Force numeric input for PIN field =====
+        document.getElementById('pin').addEventListener('keydown', function(e) {
+            // Allow: backspace, delete, tab, escape, enter, arrows, home, end
+            if ([46, 8, 9, 27, 13, 37, 38, 39, 40, 36, 35].indexOf(e.keyCode) !== -1 ||
+                // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
+                (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true))) {
+                return;
+            }
+
+            // Ensure that it's a number and stop the keypress if not
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) &&
+                (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        // Clean any pasted content to only allow numbers
+        document.getElementById('pin').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        // ===== END OF PIN NUMERIC VALIDATION =====
+
+        async function verifyPin() {
+            // ===== FIX: Prevent multiple simultaneous verifications =====
+            if (isVerifying) {
+                console.log('Verification already in progress, ignoring duplicate call');
+                return;
+            }
+
+            isVerifying = true;
+
+            const pin = document.getElementById('pin').value;
+            const errorEl = document.getElementById('errorMessage');
+            const pinInput = document.getElementById('pin');
+            const button = document.querySelector('button');
+
+            if (pin.length !== 4) {
+                showError('Please enter 4 digits');
+                isVerifying = false; // Reset flag
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/verify-pin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: username,
+                        pin: pin
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    sessionStorage.setItem('fsc_pin_verified', 'true');
+                    sessionStorage.setItem('fsc_pin_session', data.sessionId);
+                    window.location.href = data.redirect || 'global.html';
+                } else {
+                    // Show the specific error message from server
+                    showError(data.message);
+                    pinInput.value = '';
+
+                    // If account is locked, disable the input and button
+                    if (data.message.includes('locked')) {
+                        pinInput.disabled = true;
+                        button.disabled = true;
+
+                        // Parse minutes from the server message (e.g., "Try again in 25 minutes.")
+                        const minutesMatch = data.message.match(/(\d+)\s*minute/);
+                        if (minutesMatch) {
+                            const minutes = parseInt(minutesMatch[1]);
+
+                            // Remove any existing countdown message
+                            const existingMsg = document.getElementById('countdownMsg');
+                            if (existingMsg) existingMsg.remove();
+
+                            // Create countdown message element
+                            const countdownMsg = document.createElement('div');
+                            countdownMsg.id = 'countdownMsg';
+                            countdownMsg.style.textAlign = 'center';
+                            countdownMsg.style.marginTop = '10px';
+                            countdownMsg.style.color = '#ff6b6b';
+                            countdownMsg.style.fontSize = '13px';
+                            countdownMsg.style.fontWeight = '500';
+                            document.querySelector('.pin-box').appendChild(countdownMsg);
+
+                            // Calculate total seconds from the minutes returned by server
+                            let totalSeconds = minutes * 60;
+
+                            // Update countdown every second
+                            const countdownInterval = setInterval(() => {
+                                totalSeconds--;
+
+                                if (totalSeconds <= 0) {
+                                    clearInterval(countdownInterval);
+                                    pinInput.disabled = false;
+                                    button.disabled = false;
+                                    if (countdownMsg) countdownMsg.remove();
+                                    pinInput.focus();
+                                } else {
+                                    const minsLeft = Math.floor(totalSeconds / 60);
+                                    const secsLeft = totalSeconds % 60;
+                                    countdownMsg.textContent = `🔒 Locked for ${minsLeft}m ${secsLeft}s`;
+                                }
+                            }, 1000);
+                        }
+                    }
+                }
+            } catch (error) {
+                showError('Server error');
+            } finally {
+                // ===== FIX: Reset flag after verification completes (success or error) =====
+                // Only reset if we're not redirecting (if we're redirecting, the page will unload anyway)
+                if (!data?.success) {
+                    isVerifying = false;
+                }
+            }
+        }
+
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+
+            // Make error message red for lockouts, orange for regular errors
+            if (message.includes('locked')) {
+                errorEl.style.backgroundColor = 'rgba(231, 76, 60, 0.2)';
+                errorEl.style.border = '1px solid #e74c3c';
+                errorEl.style.color = '#ff6b6b';
+            } else if (message.includes('remaining')) {
+                errorEl.style.backgroundColor = 'rgba(241, 196, 15, 0.1)';
+                errorEl.style.border = '1px solid #f39c12';
+                errorEl.style.color = '#f39c12';
+            }
+
+            // Auto-hide after 5 seconds (but keep lockout message longer)
+            const hideTimeout = message.includes('locked') ? 10000 : 3000;
+            setTimeout(() => {
+                errorEl.style.display = 'none';
+                // Reset colors
+                errorEl.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+                errorEl.style.border = '1px solid rgba(231, 76, 60, 0.3)';
+                errorEl.style.color = '#e74c3c';
+            }, hideTimeout);
+        }
+
+        // ===== FIX: Modified event listeners to prevent double submission =====
+        document.getElementById('pin').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent any default form submission
+                if (!isVerifying) { // Only call if not already verifying
+                    verifyPin();
+                }
+            }
+        });
+
+        // Auto-submit when 4 digits are entered, but only if not already verifying
+        document.getElementById('pin').addEventListener('input', (e) => {
+            if (e.target.value.length === 4 && !isVerifying) {
+                verifyPin();
+            }
+        });
+    </script>
+</body>
+</html>

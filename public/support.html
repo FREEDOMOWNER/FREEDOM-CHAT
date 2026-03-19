@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>FREEDOM CHAT · support</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            color: var(--freedom-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--freedom-border);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            transform: translateX(-5px);
+            box-shadow: 0 0 20px rgba(20, 184, 158, 0.2);
+        }
+
+        .header h1 {
+            color: var(--freedom-text-primary);
+            font-size: 38px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--freedom-warm-white), var(--freedom-teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .support-intro {
+            background: var(--freedom-bg-secondary);
+            border-radius: 32px;
+            padding: 50px 40px;
+            margin-bottom: 50px;
+            border: 1px solid var(--freedom-border);
+            text-align: center;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+        }
+
+        .support-intro h2 {
+            color: var(--freedom-teal-light);
+            font-size: 30px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .support-intro p {
+            color: var(--freedom-text-secondary);
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-message {
+            background: rgba(20, 184, 158, 0.1);
+            border: 1px solid var(--freedom-teal-light);
+            border-radius: 30px;
+            padding: 20px 30px;
+            margin: 30px auto 20px;
+            max-width: 700px;
+            color: var(--freedom-teal-light);
+            font-size: 16px;
+        }
+
+        .payment-badges {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .payment-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-icon {
+            font-size: 32px;
+            background: var(--freedom-bg-tertiary);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--freedom-border);
+            color: var(--freedom-teal-light);
+            transition: all 0.3s ease;
+        }
+
+        .payment-badge:hover .payment-icon {
+            border-color: var(--freedom-teal-light);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(20, 184, 158, 0.3);
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--freedom-text-secondary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .info-card {
+            background: var(--freedom-bg-secondary);
+            border-radius: 32px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid var(--freedom-border);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--freedom-teal-light);
+            box-shadow: 0 20px 40px -10px rgba(20, 184, 158, 0.3);
+        }
+
+        .info-card h3 {
+            color: var(--freedom-teal-light);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: var(--freedom-text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .support-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .support-btn:hover::before {
+            left: 100%;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px var(--freedom-deep-teal);
+        }
+
+        .faq-section {
+            background: var(--freedom-bg-tertiary);
+            border-radius: 32px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .faq-title {
+            color: var(--freedom-teal-light);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--freedom-border);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            color: var(--freedom-text-primary);
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .faq-answer {
+            color: var(--freedom-text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: var(--freedom-text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--freedom-border);
+        }
+
+        /* Modal Styles */
+        #supportModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--freedom-bg-secondary);
+            border-radius: 32px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--freedom-bg-tertiary);
+            border: 1px solid var(--freedom-border);
+            color: var(--freedom-text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            border-color: var(--freedom-teal-light);
+            color: var(--freedom-teal-light);
+            transform: scale(1.1);
+        }
+
+        .modal-title {
+            color: var(--freedom-text-primary);
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .modal-subtitle {
+            color: var(--freedom-teal-light);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .modal-message {
+            color: var(--freedom-text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .modal-payment-box {
+            background: var(--freedom-bg-tertiary);
+            padding: 25px;
+            border-radius: 24px;
+            margin-bottom: 25px;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .modal-payment-box p {
+            margin-bottom: 20px;
+            color: var(--freedom-text-secondary);
+        }
+
+        .modal-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            padding: 15px 35px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .modal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px var(--freedom-deep-teal);
+        }
+
+        .modal-note {
+            color: var(--freedom-text-muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 28px;
+            }
+            .support-intro p {
+                font-size: 16px;
+            }
+            .support-intro {
+                padding: 40px 20px;
+            }
+            .faq-section {
+                padding: 30px 20px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="global.html" class="back-btn">← Back to Chat</a>
+            <h1>SUPPORT FREEDOM CHAT</h1>
+        </div>
+
+        <div class="support-intro">
+            <h2>Help Keep Freedom Alive</h2>
+            <p>FREEDOM CHAT is and will always be free for everyone. If you believe in our mission of private, anonymous communication, you can support the project through donations.</p>
+
+            <div class="support-message">
+                <strong>Note:</strong> Donations are voluntary and do not purchase any special roles or moderation powers. All users are equal on FREEDOM CHAT.
+            </div>
+
+            <div class="payment-badges">
+                <div class="payment-badge">
+                    <div class="payment-icon">🔒</div>
+                    <div class="payment-name">Monero (XMR)</div>
+                </div>
+                <div class="payment-badge">
+                    <div class="payment-icon">₿</div>
+                    <div class="payment-name">Bitcoin (BTC)</div>
+                </div>
+                <div class="payment-badge">
+                    <div class="payment-icon">⚡</div>
+                    <div class="payment-name">Litecoin (LTC)</div>
+                </div>
+                <div class="payment-badge">
+                    <div class="payment-icon">🔷</div>
+                    <div class="payment-name">Ethereum (ETH)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <!-- Why Support -->
+            <div class="info-card">
+                <h3>Why Support?</h3>
+                <p>Your donations help cover server costs, development time, and keep the platform running for everyone. No paywalls, no premium features - just pure support.</p>
+                <button class="support-btn" onclick="showSupportModal('why')">Learn More</button>
+            </div>
+
+            <!-- How to Donate -->
+            <div class="info-card">
+                <h3>How to Donate</h3>
+                <p>Choose any cryptocurrency that works for you. All donations are anonymous and go directly to platform maintenance and development.</p>
+                <button class="support-btn" onclick="showSupportModal('how')">Donate Now</button>
+            </div>
+
+            <!-- Transparency -->
+            <div class="info-card">
+                <h3>Transparency</h3>
+                <p>We believe in complete transparency. All donations are used solely for server costs, domain renewals, and development. No hidden expenses.</p>
+                <button class="support-btn" onclick="showSupportModal('transparency')">View Details</button>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-title">Frequently Asked Questions</div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do donations give me special privileges?</div>
+                <div class="faq-answer">No. FREEDOM CHAT believes in equality for all users. Donations are purely voluntary support and do not affect your role, permissions, or status in any way. We do not sell VIP, Moderator, or Admin roles - these are earned through trust and contribution to the community.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Where does my donation go?</div>
+                <div class="faq-answer">100% of donations go toward server hosting, domain renewals, and development costs. We maintain full transparency about how funds are used.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I donate anonymously?</div>
+                <div class="faq-answer">Yes! We accept multiple cryptocurrencies that allow for anonymous transactions. You never need to provide personal information.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What if I can't donate?</div>
+                <div class="faq-answer">That's perfectly fine! FREEDOM CHAT is free for everyone, forever. The best support is being an active, positive member of our community.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 FREEDOM CHAT · By GREEN · Free for Everyone, Forever</p>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div id="supportModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="hideSupportModal()">✖</button>
+
+            <h2 class="modal-title" id="modalTitle">Support Freedom Chat</h2>
+            <div class="modal-subtitle" id="modalSubtitle"></div>
+            <div class="modal-message" id="modalMessage"></div>
+
+            <div class="modal-payment-box" id="modalPaymentBox">
+                <p>Contact me directly on X to arrange a donation:</p>
+                <a href="https://www.x.com/freedomowneroff" target="_blank" class="modal-link">@FREEDOMOWNEROFF</a>
+            </div>
+
+            <p class="modal-note">All donations are voluntary · No purchase necessary</p>
+        </div>
+    </div>
+
+    <script>
+        function showSupportModal(type) {
+            const modal = document.getElementById('supportModal');
+            const title = document.getElementById('modalTitle');
+            const subtitle = document.getElementById('modalSubtitle');
+            const message = document.getElementById('modalMessage');
+            const paymentBox = document.getElementById('modalPaymentBox');
+
+            let details = {
+                why: {
+                    title: 'Why Support?',
+                    subtitle: 'Keep Freedom Alive',
+                    message: 'FREEDOM CHAT runs on donations from people like you. Your support helps us maintain servers, develop new features, and keep the platform free for everyone.'
+                },
+                how: {
+                    title: 'How to Donate',
+                    subtitle: 'Choose Your Method',
+                    message: 'Contact me directly on X to arrange a donation. We accept Bitcoin, Monero, Litecoin, Ethereum, and other cryptocurrencies.'
+                },
+                transparency: {
+                    title: 'Transparency',
+                    subtitle: 'Where Your Money Goes',
+                    message: '100% of donations go to: Server hosting, Domain renewals, Development tools, and Infrastructure costs. No salaries, no profits - just keeping the platform running.'
+                }
+            };
+
+            title.textContent = details[type].title;
+            subtitle.textContent = details[type].subtitle;
+            message.textContent = details[type].message;
+
+            modal.style.display = 'flex';
+        }
+
+        function hideSupportModal() {
+            document.getElementById('supportModal').style.display = 'none';
+        }
+
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('supportModal');
+            if (e.target === modal) hideSupportModal();
+        });
+    </script>
+</body>
+</html>

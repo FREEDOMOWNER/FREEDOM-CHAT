@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>FREEDOM CHAT · terms of service</title>
+    <script src="deviceid.js"></script>
+    <!-- ===== SECURITY FIX: Security meta tags ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --freedom-deep-teal: #0F766E;
+            --freedom-teal-light: #14B89E;
+            --freedom-warm-white: #F8FAFC;
+            --freedom-slate: #334155;
+            --freedom-slate-dark: #1E293B;
+            --freedom-slate-light: #475569;
+            --freedom-border: #1F4040;
+            --freedom-bg-primary: #0B1A1A;
+            --freedom-bg-secondary: #0F2323;
+            --freedom-bg-tertiary: #153030;
+            --freedom-text-primary: #ECFDF5;
+            --freedom-text-secondary: #B0D4D0;
+            --freedom-text-muted: #6B8F8B;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--freedom-bg-primary);
+            font-family: var(--font-main);
+            color: var(--freedom-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 40%, rgba(20, 184, 158, 0.03) 0%, transparent 30%),
+                              radial-gradient(circle at 70% 80%, rgba(20, 184, 158, 0.03) 0%, transparent 40%),
+                              radial-gradient(circle at 10% 90%, rgba(20, 184, 158, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background: var(--freedom-bg-tertiary);
+            color: var(--freedom-text-secondary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--freedom-border);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--freedom-teal-light);
+            border-color: var(--freedom-teal-light);
+            transform: translateX(-5px);
+            box-shadow: 0 0 20px rgba(20, 184, 158, 0.2);
+        }
+
+        .header h1 {
+            color: var(--freedom-text-primary);
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--freedom-warm-white), var(--freedom-teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .terms-card {
+            background: var(--freedom-bg-secondary);
+            border-radius: 32px;
+            padding: 50px;
+            border: 1px solid var(--freedom-border);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(20, 184, 158, 0.1) inset;
+        }
+
+        .terms-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .terms-title h1 {
+            color: var(--freedom-text-primary);
+            font-size: 38px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .last-updated {
+            color: var(--freedom-teal-light);
+            font-size: 14px;
+            background: var(--freedom-bg-tertiary);
+            display: inline-block;
+            padding: 6px 24px;
+            border-radius: 40px;
+            border: 1px solid var(--freedom-border);
+            letter-spacing: 0.3px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            color: var(--freedom-teal-light);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--freedom-border);
+            letter-spacing: -0.2px;
+            text-transform: uppercase;
+        }
+
+        .section-content {
+            color: var(--freedom-text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .section-content p {
+            margin-bottom: 12px;
+        }
+
+        .section-content ul, .section-content ol {
+            margin: 12px 0 15px 25px;
+        }
+
+        .section-content li {
+            margin-bottom: 8px;
+            color: var(--freedom-text-secondary);
+        }
+
+        .section-content li::marker {
+            color: var(--freedom-teal-light);
+        }
+
+        .highlight-box {
+            background: var(--freedom-bg-tertiary);
+            border-left: 4px solid var(--freedom-teal-light);
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border: 1px solid var(--freedom-border);
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--freedom-teal-light);
+            font-weight: 500;
+        }
+
+        .prohibited-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .prohibited-item {
+            background: var(--freedom-bg-tertiary);
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--freedom-border);
+            color: var(--freedom-text-secondary);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .prohibited-item:hover {
+            border-color: #e74c3c;
+            transform: translateX(3px);
+        }
+
+        .prohibited-item strong {
+            color: #e74c3c;
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        .grounds-list {
+            background: var(--freedom-bg-tertiary);
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid var(--freedom-border);
+            margin: 15px 0;
+        }
+
+        .grounds-list li {
+            color: var(--freedom-text-secondary);
+        }
+
+        .grounds-list li strong {
+            color: var(--freedom-teal-light);
+        }
+
+        .acknowledgment {
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            padding: 30px;
+            border-radius: 24px;
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+
+        .acknowledgment p {
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--freedom-border);
+            color: var(--freedom-text-muted);
+            font-size: 13px;
+        }
+
+        .contact-info {
+            background: var(--freedom-bg-tertiary);
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--freedom-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-info span {
+            color: var(--freedom-text-secondary);
+            font-size: 14px;
+        }
+
+        .contact-link {
+            background: linear-gradient(135deg, var(--freedom-deep-teal), var(--freedom-teal-light));
+            color: var(--freedom-warm-white);
+            text-decoration: none;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(20, 184, 158, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .terms-card { padding: 30px 20px; }
+            .terms-title h1 { font-size: 26px; }
+            .section-title { font-size: 16px; }
+            .prohibited-list { grid-template-columns: 1fr; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .header h1 { font-size: 26px; }
+            .contact-info { flex-direction: column; align-items: flex-start; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--freedom-bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--freedom-deep-teal);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--freedom-teal-light);
+        }
+
+        ::selection {
+            background: var(--freedom-deep-teal);
+            color: var(--freedom-warm-white);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="register.html" class="back-btn">← Back to Registration</a>
+            <h1>TERMS OF SERVICE</h1>
+        </div>
+
+        <div class="terms-card">
+            <div class="terms-title">
+                <h1>FREEDOM CHAT</h1>
+                <div class="last-updated">Effective Date: March 2026</div>
+            </div>
+
+            <!-- PREAMBLE -->
+            <div class="section">
+                <div class="section-title">PREAMBLE</div>
+                <div class="section-content">
+                    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User," "you," or "your") and FREEDOM CHAT ("we," "us," or "our") governing your access to and use of the FREEDOM CHAT platform, including any associated services, features, and content (collectively, the "Service").</p>
+                    <p>By registering for, accessing, or using the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you are expressly prohibited from using the Service.</p>
+                </div>
+            </div>
+
+            <!-- 1. ELIGIBILITY -->
+            <div class="section">
+                <div class="section-title">1. ELIGIBILITY AND ACCOUNT REGISTRATION</div>
+                <div class="section-content">
+                    <p><strong>1.1 Age Requirement.</strong> The Service is intended for users who are at least 13 years of age. By using the Service, you represent and warrant that you are at least 13 years old and possess the legal capacity to enter into these Terms.</p>
+
+                    <p><strong>1.2 Account Creation.</strong> To access certain features of the Service, you must create an account. You agree to provide accurate, current, and complete information during the registration process and to update such information as necessary to maintain its accuracy.</p>
+
+                    <p><strong>1.3 Account Responsibility.</strong> You are solely responsible for maintaining the confidentiality of your account credentials, including your username, password, and PIN. You accept full responsibility for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account or any other breach of security.</p>
+
+                    <p><strong>1.4 Device Limitations.</strong> To prevent abuse and maintain platform integrity, we limit account creation to a maximum of two (2) accounts per device when device fingerprinting is enabled. Users may opt out of fingerprinting for enhanced privacy, which may affect the enforcement of this limit.</p>
+
+                    <p><strong>1.5 Recovery Phrase.</strong> Upon registration, you will be provided with a 16-word recovery phrase. You acknowledge that this phrase is the sole method of account recovery; we do not offer email-based password resets. Loss of your recovery phrase will result in permanent, irrecoverable loss of access to your account and all associated data.</p>
+                </div>
+            </div>
+
+            <!-- 2. USER CONDUCT -->
+            <div class="section">
+                <div class="section-title">2. USER CONDUCT AND PROHIBITED ACTIVITIES</div>
+                <div class="section-content">
+                    <p><strong>2.1 General Standards.</strong> You agree to use the Service in compliance with all applicable laws, regulations, and these Terms. You may not use the Service for any unlawful, fraudulent, or unauthorized purpose.</p>
+
+                    <p><strong>2.2 Prohibited Conduct.</strong> You expressly agree not to engage in any of the following prohibited activities:</p>
+
+                    <div class="prohibited-list">
+                        <div class="prohibited-item"><strong>(a)</strong> Violation of Laws - Engaging in any activity that violates local, state, national, or international laws or regulations</div>
+                        <div class="prohibited-item"><strong>(b)</strong> Illegal Content - Posting, uploading, or sharing content that is illegal, including child exploitation material, terrorist content, or copyrighted material without authorization</div>
+                        <div class="prohibited-item"><strong>(c)</strong> Harassment - Engaging in harassment, stalking, bullying, threats, or intimidation of any kind</div>
+                        <div class="prohibited-item"><strong>(d)</strong> Hate Speech - Posting content that promotes hatred, violence, or discrimination based on race, ethnicity, religion, gender, sexual orientation, or disability</div>
+                        <div class="prohibited-item"><strong>(e)</strong> Impersonation - Impersonating any person or entity, including FREEDOM CHAT staff, moderators, or other users</div>
+                        <div class="prohibited-item"><strong>(f)</strong> Platform Disruption - Interfering with or disrupting the Service, including hacking, DDoS attacks, or attempting to bypass security measures</div>
+                        <div class="prohibited-item"><strong>(g)</strong> Spam - Sending unsolicited messages, advertisements, promotions, or any form of commercial solicitation</div>
+                        <div class="prohibited-item"><strong>(h)</strong> Malicious Content - Sharing viruses, malware, ransomware, phishing links, or any other harmful code or content</div>
+                        <div class="prohibited-item"><strong>(i)</strong> Evasion - Attempting to circumvent bans, suspensions, or other restrictions imposed by us</div>
+                        <div class="prohibited-item"><strong>(j)</strong> Data Mining - Scraping, collecting, or harvesting any user data without explicit permission</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. USER CONTENT -->
+            <div class="section">
+                <div class="section-title">3. USER CONTENT AND INTELLECTUAL PROPERTY</div>
+                <div class="section-content">
+                    <p><strong>3.1 Ownership.</strong> You retain all ownership rights to the content you post, transmit, or otherwise make available through the Service ("User Content"). Nothing in these Terms transfers ownership of your User Content to us.</p>
+
+                    <p><strong>3.2 License Grant.</strong> By posting User Content, you grant us a non-exclusive, worldwide, royalty-free license to host, store, reproduce, transmit, and display your User Content solely for the purpose of operating and providing the Service.</p>
+
+                    <p><strong>3.3 Representations and Warranties.</strong> You represent and warrant that: (a) you own all rights to your User Content or have obtained all necessary permissions and licenses; (b) your User Content does not infringe upon the intellectual property rights or other rights of any third party; and (c) your User Content complies with these Terms and all applicable laws.</p>
+
+                    <p><strong>3.4 Content Retention and Deletion.</strong> User Content, including messages, is automatically deleted from our servers twenty-four (24) hours after posting. We do not maintain archives of User Content beyond this period. You are solely responsible for maintaining copies of any content you wish to preserve.</p>
+
+                    <p><strong>3.5 Monitoring and Removal.</strong> While we are not obligated to monitor User Content, we reserve the right to review, remove, or disable access to any User Content that we reasonably believe violates these Terms or applicable law, without prior notice.</p>
+                </div>
+            </div>
+
+            <!-- 4. MODERATION AND ENFORCEMENT -->
+            <div class="section">
+                <div class="section-title">4. MODERATION AND ENFORCEMENT</div>
+                <div class="section-content">
+                    <p><strong>4.1 Staff Authority.</strong> Designated moderators and administrators have the authority to enforce these Terms through various actions, including but not limited to issuing warnings, muting, and banning users.</p>
+
+                    <p><strong>4.2 Automated Enforcement.</strong> The Service employs automated systems to detect and respond to certain violations, including:</p>
+                    <ul>
+                        <li><strong>Link Filtering:</strong> Users with standard accounts may not post links. Three (3) link posting attempts will result in automatic account termination.</li>
+                        <li><strong>Rate Limiting:</strong> Standard users are limited to five (5) messages per five (5) second period to prevent spam.</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>4.3 Grounds for Termination</strong></p>
+                    </div>
+
+                    <div class="grounds-list">
+                        <ul>
+                            <li><strong>(a)</strong> Violation of any prohibited activity outlined in Section 2</li>
+                            <li><strong>(b)</strong> Accumulation of three (3) warnings from moderators</li>
+                            <li><strong>(c)</strong> Receipt of substantiated reports from other users</li>
+                            <li><strong>(d)</strong> Attempting to circumvent previous enforcement actions</li>
+                            <li><strong>(e)</strong> Any activity that, in our sole discretion, poses a threat to the platform or its users</li>
+                        </ul>
+                    </div>
+
+                    <p><strong>4.4 No Right to Appeal.</strong> All moderation decisions, including account terminations, are final and at our sole discretion. We are under no obligation to provide explanations or reconsideration of enforcement actions.</p>
+                </div>
+            </div>
+
+            <!-- 5. SERVICE PROVIDED "AS IS" -->
+            <div class="section">
+                <div class="section-title">5. DISCLAIMER OF WARRANTIES</div>
+                <div class="section-content">
+                    <p><strong>5.1 "AS IS" Basis.</strong> THE SERVICE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, WE EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.</p>
+
+                    <p><strong>5.2 No Guarantee of Service.</strong> WE DO NOT WARRANT THAT: (a) THE SERVICE WILL MEET YOUR REQUIREMENTS; (b) THE SERVICE WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE; (c) THE RESULTS OBTAINED FROM USING THE SERVICE WILL BE ACCURATE OR RELIABLE; (d) THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION, OR OTHER MATERIAL OBTAINED THROUGH THE SERVICE WILL MEET YOUR EXPECTATIONS; OR (e) ANY ERRORS IN THE SERVICE WILL BE CORRECTED.</p>
+
+                    <p><strong>5.3 No Liability for User Conduct.</strong> WE ARE NOT RESPONSIBLE FOR THE CONDUCT, WHETHER ONLINE OR OFFLINE, OF ANY USER OF THE SERVICE. YOU ARE SOLELY RESPONSIBLE FOR YOUR INTERACTIONS WITH OTHER USERS.</p>
+                </div>
+            </div>
+
+            <!-- 6. LIMITATION OF LIABILITY -->
+            <div class="section">
+                <div class="section-title">6. LIMITATION OF LIABILITY</div>
+                <div class="section-content">
+                    <p><strong>6.1 Exclusion of Damages.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL WE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR RELATING TO YOUR USE OF OR INABILITY TO USE THE SERVICE.</p>
+
+                    <p><strong>6.2 Cap on Liability.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, OUR TOTAL LIABILITY TO YOU FOR ANY CLAIMS ARISING OUT OF OR RELATING TO THESE TERMS OR YOUR USE OF THE SERVICE SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID US, IF ANY, IN THE SIX (6) MONTHS PRECEDING THE CLAIM, OR (B) ONE HUNDRED DOLLARS ($100.00).</p>
+
+                    <p><strong>6.3 Applicability.</strong> SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES, SO SOME OF THE ABOVE EXCLUSIONS AND LIMITATIONS MAY NOT APPLY TO YOU.</p>
+                </div>
+            </div>
+
+            <!-- 7. INDEMNIFICATION -->
+            <div class="section">
+                <div class="section-title">7. INDEMNIFICATION</div>
+                <div class="section-content">
+                    <p>You agree to defend, indemnify, and hold harmless FREEDOM CHAT, its affiliates, officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including but not limited to reasonable attorneys' fees) arising out of or relating to: (a) your use of the Service; (b) your violation of these Terms; (c) your violation of any third-party rights, including without limitation any intellectual property or privacy rights; or (d) any claim that your User Content caused damage to a third party.</p>
+                </div>
+            </div>
+
+            <!-- 8. THIRD-PARTY CONTENT -->
+            <div class="section">
+                <div class="section-title">8. THIRD-PARTY CONTENT AND SECTION 230</div>
+                <div class="section-content">
+                    <p><strong>8.1 User-Generated Content.</strong> The Service primarily consists of user-generated content. We do not endorse, support, represent, or guarantee the completeness, truthfulness, accuracy, or reliability of any User Content.</p>
+
+                    <p><strong>8.2 Section 230 Compliance.</strong> Pursuant to Section 230 of the Communications Decency Act (47 U.S.C. § 230), we are not the publisher or speaker of any User Content and shall not be held liable for any User Content. Our role is limited to that of a passive conduit for the transmission of User Content.</p>
+
+                    <p><strong>8.3 Reporting and Removal.</strong> Notwithstanding the foregoing, we encourage users to report content that violates these Terms. We reserve the right, but assume no obligation, to remove or disable access to any content that we determine, in our sole discretion, violates these Terms or applicable law.</p>
+                </div>
+            </div>
+
+            <!-- 9. MODIFICATIONS -->
+            <div class="section">
+                <div class="section-title">9. MODIFICATIONS TO SERVICE AND TERMS</div>
+                <div class="section-content">
+                    <p><strong>9.1 Service Modifications.</strong> We reserve the right to modify, suspend, or discontinue the Service (or any part thereof) at any time, with or without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuance of the Service.</p>
+
+                    <p><strong>9.2 Terms Modifications.</strong> We may revise these Terms from time to time. The most current version will always be posted on this page. By continuing to access or use the Service after revisions become effective, you agree to be bound by the revised Terms. If you do not agree to the new Terms, you must stop using the Service.</p>
+                </div>
+            </div>
+
+            <!-- 10. GOVERNING LAW -->
+            <div class="section">
+                <div class="section-title">10. GOVERNING LAW AND DISPUTE RESOLUTION</div>
+                <div class="section-content">
+                    <p><strong>10.1 Governing Law.</strong> These Terms shall be governed by and construed in accordance with the laws of [YOUR JURISDICTION], without regard to its conflict of law provisions.</p>
+
+                    <p><strong>10.2 Dispute Resolution.</strong> Any dispute arising out of or relating to these Terms or your use of the Service shall be resolved through binding arbitration in accordance with the rules of the American Arbitration Association. The arbitration shall take place in [YOUR CITY/STATE], and judgment on the arbitration award may be entered in any court having jurisdiction thereof.</p>
+
+                    <p><strong>10.3 Class Action Waiver.</strong> YOU AGREE THAT ANY DISPUTE RESOLUTION PROCEEDINGS WILL BE CONDUCTED ON AN INDIVIDUAL BASIS AND NOT IN A CLASS, CONSOLIDATED, OR REPRESENTATIVE ACTION.</p>
+                </div>
+            </div>
+
+            <!-- 11. GENERAL PROVISIONS -->
+            <div class="section">
+                <div class="section-title">11. GENERAL PROVISIONS</div>
+                <div class="section-content">
+                    <p><strong>11.1 Entire Agreement.</strong> These Terms constitute the entire agreement between you and FREEDOM CHAT regarding your use of the Service and supersede all prior agreements and understandings, whether written or oral.</p>
+
+                    <p><strong>11.2 Severability.</strong> If any provision of these Terms is held to be invalid, illegal, or unenforceable, the remaining provisions shall remain in full force and effect.</p>
+
+                    <p><strong>11.3 Waiver.</strong> Our failure to enforce any right or provision of these Terms shall not be deemed a waiver of such right or provision.</p>
+
+                    <p><strong>11.4 Assignment.</strong> You may not assign or transfer these Terms, by operation of law or otherwise, without our prior written consent. We may assign these Terms without restriction.</p>
+
+                    <p><strong>11.5 Notices.</strong> Any notices or other communications regarding these Terms may be provided through the Service or via the contact information provided below.</p>
+                </div>
+            </div>
+
+            <!-- 12. CONTACT INFORMATION -->
+            <div class="section">
+                <div class="section-title">12. CONTACT INFORMATION</div>
+                <div class="section-content">
+                    <p>For questions regarding these Terms, please contact us through our official channels:</p>
+
+                    <div class="contact-info">
+                        <span>FREEDOM CHAT · Office of the Administrator</span>
+                        <a href="https://www.x.com/freedomowneroff" class="contact-link">@freedomowneroff</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACKNOWLEDGMENT -->
+            <div class="acknowledgment">
+                <p>BY CREATING AN ACCOUNT OR USING THE SERVICE, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE, UNDERSTAND THEM, AND AGREE TO BE BOUND BY THEM.</p>
+            </div>
+
+            <div class="footer">
+                © 2026 FREEDOM CHAT · All Rights Reserved · Created by GREEN
+            </div>
+        </div>
+    </div>
+</body>
+</html>
